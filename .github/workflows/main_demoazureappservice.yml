@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -31,12 +31,12 @@ jobs:
           path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'DemoAzureAppService'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5D9FB00596D44C03B333ABD77A6E9272 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9C70327D0391431CAF1B7707E72C144D }}
           package: '*.jar'
